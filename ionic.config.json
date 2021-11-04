@@ -1,0 +1,7 @@
+{
+  "name": "Ledz Go",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
