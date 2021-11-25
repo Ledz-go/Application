@@ -1,9 +1,3 @@
-<ion-content style="display: flex">
-  <div>
-    <ion-button (click)="takePicture()">Take a picture of the room</ion-button>
-    <h1 *ngFor="let p of photos ">{{p.filepath}}</h1>
-    <ion-img *ngIf="photos.length == 1" [src]="photos[0].webviewPath"></ion-img>
-    <h2>dasdasd</h2>
-  </div>
-
+<ion-content style="">
+  <ion-button style="position: absolute; top: 50%; right: 50%; transform: translate(50%,0)" (click)="takePicture()">Take a picture of the room</ion-button>
 </ion-content>
