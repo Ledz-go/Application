@@ -1,7 +1,7 @@
 import {CapacitorConfig} from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'io.ledzgo.starter',
   appName: 'Ledz Go',
   webDir: 'www',
   bundledWebRuntime: false

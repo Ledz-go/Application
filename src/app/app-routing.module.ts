@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: 'new-room',
     loadChildren: () => import('./pages/new-room/new-room.module').then(m => m.NewRoomPageModule)
+  },
+  {
+    path: 'room-editor',
+    loadChildren: () => import('./pages/room-editor/room-editor.module').then( m => m.RoomEditorPageModule)
   }
 ];
 
