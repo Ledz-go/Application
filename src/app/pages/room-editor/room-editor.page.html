@@ -5,6 +5,20 @@
 </ion-header>
 
 <ion-content>
-  <ion-img [src]="photo.webviewPath"></ion-img>
+  <ion-img [src]="photo.webviewPath" style="height: 300px"></ion-img>
+
+  <ion-item>
+    <ion-label>Name</ion-label>
+    <ion-input [(ngModel)]="room.name"></ion-input>
+  </ion-item>
+
+  <div style="display: flex; flex-direction: row">
+
+  </div>
+  <ion-fab *ngFor="let plug of plugs">
+    <ion-fab-button (click)="presentPopover($event, plug.model)">
+      <ion-icon name="bulb-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
 </ion-content>

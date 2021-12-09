@@ -1,15 +1,20 @@
-import { Injectable } from '@angular/core';
-import { Camera, CameraPhoto, CameraResultType, CameraSource } from '@capacitor/camera';
-import {Directory, Filesystem } from '@capacitor/filesystem';
-import {Photo} from "../interfaces/photo";
+import {Injectable} from '@angular/core';
+import {Camera, CameraPhoto, CameraResultType, CameraSource} from '@capacitor/camera';
+import {Directory, Filesystem} from '@capacitor/filesystem';
+import {Photo} from '../interfaces/photo';
+import {RoomsService} from './rooms.service';
+import {IRoom} from '../interfaces/room';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PhotoService {
-  public photos : Photo[] = [];
+  public photos: Photo[] = [];
 
-  constructor() { }
+  constructor(
+    private roomService: RoomsService,
+  ) {
+  }
 
   async takePicture() {
     const image = await Camera.getPhoto({
@@ -18,8 +23,15 @@ export class PhotoService {
       quality: 100
     });
     // Save the picture and add it to photo collection
-    const savedImageFile = await this.savePicture(image);
-    this.photos.unshift(savedImageFile);
+    const savedImageFile: Photo = await this.savePicture(image);
+    this.photos.push(savedImageFile);
+    const mRoom: IRoom = {
+      id: this.photos.length,
+      name: 'new room: ' + this.photos.length,
+      photo: savedImageFile,
+      lights: [],
+    };
+    this.roomService.addRoom(mRoom);
   }
 
   private async savePicture(cameraPhoto: CameraPhoto) {
@@ -52,7 +64,7 @@ export class PhotoService {
   }
 
   convertBlobToBase64 = (blob: Blob) => new Promise((resolve, reject) => {
-    const reader = new FileReader;
+    const reader = new FileReader();
     reader.onerror = reject;
     reader.onload = () => {
       resolve(reader.result);

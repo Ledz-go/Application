@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {IRoom} from '../interfaces/room';
 
 @Injectable({
@@ -6,10 +6,9 @@ import {IRoom} from '../interfaces/room';
 })
 export class RoomsService {
 
-  public rooms: IRoom[];
+  public rooms: IRoom[] = [];
 
   constructor() {
-    this.rooms = [];
   }
 
   /**
@@ -19,12 +18,16 @@ export class RoomsService {
     throw new Error('Not implmented');
   }
 
-  getRoomsName(){
+  getRoomsName() {
     return this.rooms.map(room => room.name);
   }
 
-  areRoomsSet(){
+  areRoomsSet() {
     return this.rooms === [];
+  }
+
+  addRoom(room: IRoom) {
+    this.rooms.push(room);
   }
 
 }
