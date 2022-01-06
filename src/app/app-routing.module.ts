@@ -17,7 +17,11 @@ const routes: Routes = [
   },
   {
     path: 'room-editor',
-    loadChildren: () => import('./pages/room-editor/room-editor.module').then( m => m.RoomEditorPageModule)
+    loadChildren: () => import('./pages/room-editor/room-editor.module').then(m => m.RoomEditorPageModule)
+  },
+  {
+    path: 'room',
+    loadChildren: () => import('./pages/room/room.module').then(m => m.RoomPageModule)
   }
 ];
 

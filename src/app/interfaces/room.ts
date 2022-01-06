@@ -1,9 +1,9 @@
-import {Light} from '../classes/light';
 import {Photo} from './photo';
+import {Plug} from './Plug';
 
 export interface IRoom {
   id: number;
   name: string;
   photo: Photo;
-  lights: Light[];
+  plugs: Plug[];
 }

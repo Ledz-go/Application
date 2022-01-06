@@ -6,7 +6,7 @@ import {IRoom} from '../../interfaces/room';
 import {RoomsService} from '../../services/rooms.service';
 import {NetworkService} from '../../services/network.service';
 import {Plug} from '../../interfaces/Plug';
-import {PopoverController} from '@ionic/angular';
+import {AlertController, PopoverController} from '@ionic/angular';
 import {TooltipComponent} from '../../components/tooltip/tooltip.component';
 
 @Component({
@@ -19,6 +19,7 @@ export class RoomEditorPage implements OnInit {
   public photo: Photo;
   public room: IRoom;
   public plugs: Plug[]; // unassigned plugs
+  public unknownPlugs: Partial<Plug>[]; // unassigned plugs
 
   public popover: HTMLIonPopoverElement;
 
@@ -28,6 +29,7 @@ export class RoomEditorPage implements OnInit {
     public roomService: RoomsService,
     public networkService: NetworkService,
     public popoverController: PopoverController,
+    public alertController: AlertController,
   ) {
   }
 
@@ -37,7 +39,7 @@ export class RoomEditorPage implements OnInit {
       this.photo = this.photoService.photos[this.index];
       this.room = this.roomService.rooms[this.index];
       this.plugs = this.networkService.getNetwork();
-      console.log(this.plugs);
+      this.unknownPlugs = this.networkService.unknownPlugs;
     });
   }
 
@@ -50,6 +52,50 @@ export class RoomEditorPage implements OnInit {
       }
     });
     await this.popover.present();
+  }
+
+  async selectPlug(plug: Plug) {
+    this.room.plugs.push(plug);
+    this.plugs = this.plugs.filter(p => p.fixtureId !== plug.fixtureId);
+  }
+
+  async definePlug(plug: Partial<Plug>) {
+    const alert = await this.alertController.create({
+      header: 'Define Plug',
+      inputs: [
+        {
+          name: 'model',
+          type: 'text',
+          placeholder: 'Plug Type',
+        },
+        {
+          name: 'channels',
+          type: 'text',
+          placeholder: 'Plug Power',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: { model: string, channels: string }) => {
+            const mPlug: Plug = {
+              fixtureId: plug.fixtureId,
+              model: data.model,
+              channels: data.channels.split(",").map(e => +e),
+              connectionState: true,
+            };
+            this.networkService.definePlug(mPlug);
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
 }

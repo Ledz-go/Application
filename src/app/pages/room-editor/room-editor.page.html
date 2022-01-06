@@ -11,14 +11,29 @@
     <ion-label>Name</ion-label>
     <ion-input [(ngModel)]="room.name"></ion-input>
   </ion-item>
-
-  <div style="display: flex; flex-direction: row">
-
-  </div>
-  <ion-fab *ngFor="let plug of plugs">
-    <ion-fab-button (click)="presentPopover($event, plug.model)">
-      <ion-icon name="bulb-outline"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+  <ion-item>
+    <ion-label>Selected lights</ion-label>
+    <ion-fab *ngFor="let plug of room.plugs">
+      <ion-fab-button>
+        <ion-icon name="bulb-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-item>
+  <ion-item>
+    <ion-label>Detected plugs</ion-label>
+    <ion-fab *ngFor="let plug of plugs">
+      <ion-fab-button (click)="selectPlug(plug)">
+        <ion-icon name="bulb-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-item>
+  <ion-item>
+    <ion-label>Unknown plugs</ion-label>
+    <ion-fab *ngFor="let plug of networkService.unknownPlugs">
+      <ion-fab-button (click)="definePlug(plug)">
+        <ion-icon name="bulb-outline"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </ion-item>
 
 </ion-content>

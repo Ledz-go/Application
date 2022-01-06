@@ -29,7 +29,7 @@ export class PhotoService {
       id: this.photos.length,
       name: 'new room: ' + this.photos.length,
       photo: savedImageFile,
-      lights: [],
+      plugs: [],
     };
     this.roomService.addRoom(mRoom);
   }
