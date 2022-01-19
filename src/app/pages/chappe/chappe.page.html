@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Amphi Chappe</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-img src="assets/img.png" style="height: 300px"></ion-img>
+  </ion-card>
+
+  <h1>Moods</h1>
+  <ion-button (click)="sendMood('clubbing')" color="primary">🥳 clubbing</ion-button>
+  <ion-button (click)="sendMood('love')" color="danger">🥰 love</ion-button>
+  <ion-button (click)="sendMood('chill')" color="warning">😁 chill</ion-button>
+
+
+  <ion-button style="width: 100%; bottom: 10px">Direct control</ion-button>
+
+</ion-content>

@@ -16,7 +16,11 @@ interface Page {
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  appPages: Page[];
+  appPages: Page[] = [{
+    title: 'Amphi',
+    url: '/chappe',
+    icon: 'home',
+  }];
 
   constructor(
     private roomService: RoomsService,
@@ -25,21 +29,21 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    setInterval(() => {
-      this.appPages = this.roomService.rooms.map(room => ({
-        title: room.name,
-        url: encodeURI(`room-editor`),
-        params: {
-          index: room.id,
-        },
-        icon: 'home',
-      }));
-    }, 1000);
-    this.appPages = this.roomService.rooms.map(room => ({
-      title: room.name,
-      url: `/room/${room.id}`,
-      icon: 'home',
-    }));
+    // setInterval(() => {
+    //   this.appPages = this.roomService.rooms.map(room => ({
+    //     title: room.name,
+    //     url: encodeURI(`room-editor`),
+    //     params: {
+    //       index: room.id,
+    //     },
+    //     icon: 'home',
+    //   }));
+    // }, 1000);
+    // this.appPages = this.roomService.rooms.map(room => ({
+    //   title: room.name,
+    //   url: `/room/${room.id}`,
+    //   icon: 'home',
+    // }));
   }
 
 }

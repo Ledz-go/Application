@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Plug} from '../interfaces/Plug';
 import {MessageService} from "./message.service";
+import {BluetoothSerial} from "@awesome-cordova-plugins/bluetooth-serial/ngx";
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +9,14 @@ import {MessageService} from "./message.service";
 export class NetworkService {
   public plugs: Plug[] = [];
   public unknownPlugs: Partial<Plug>[] = [];
+  public moods = {
+    clubbing: {},
+    chill: {}
+  }
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private bluetoothSerial: BluetoothSerial
   ) {
   }
 
@@ -58,5 +64,10 @@ export class NetworkService {
       connectionState: true, //L'etat de connection TCP
     },]
     return this.plugs;
+  }
+
+  async sendMood(mood: string) {
+    const moodCommand = this.moods[mood];
+    await this.bluetoothSerial.write(moodCommand);
   }
 }
