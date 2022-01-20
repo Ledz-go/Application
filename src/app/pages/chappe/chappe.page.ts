@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 
-// import {NetworkService} from "../../services/network.service";
+import {NetworkService} from '../../services/network.service';
 
 @Component({
   selector: 'app-chappe',
@@ -10,7 +10,7 @@ import {Component, OnInit} from '@angular/core';
 export class ChappePage implements OnInit {
 
   constructor(
-    // private networkService: NetworkService,
+    private networkService: NetworkService,
   ) {
   }
 
@@ -18,6 +18,6 @@ export class ChappePage implements OnInit {
   }
 
   async sendMood(mood: string) {
-    // await this.networkService.sendMood(mood);
+    await this.networkService.sendMood(mood);
   }
 }

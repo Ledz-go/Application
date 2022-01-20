@@ -10,8 +10,8 @@ export class NetworkService {
   public plugs: Plug[] = [];
   public unknownPlugs: Partial<Plug>[] = [];
   public moods = {
-    clubbing: {},
-    chill: {}
+    clubbing: {"Data": {"Type": "Command", "NodeID": "3C:61:05:D2:BD:4A", "Channels": [255, 0, 0]}},
+    chill: {"Data": {"Type": "Command", "NodeID": "3C:61:05:D2:BD:4A", "Channels": [0, 0, 255]}}
   }
 
   constructor(
@@ -68,6 +68,6 @@ export class NetworkService {
 
   async sendMood(mood: string) {
     const moodCommand = this.moods[mood];
-    await this.bluetoothSerial.write(moodCommand);
+    await this.bluetoothSerial.write(JSON.stringify(moodCommand));
   }
 }
